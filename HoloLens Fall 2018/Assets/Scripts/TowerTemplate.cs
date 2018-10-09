@@ -2,7 +2,8 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class TowerTemplate : MonoBehaviour {
+public class TowerTemplate : MonoBehaviour
+{
 
 
     [Header("Turret Stats")]
@@ -13,6 +14,7 @@ public class TowerTemplate : MonoBehaviour {
     public float health = 1f;
     public float turnSpeed = 12;
 
+
     [Header("Setup Stuff")]
     public string enemyTag = "Enemy";
     public Transform target;
@@ -21,23 +23,40 @@ public class TowerTemplate : MonoBehaviour {
     public GameObject bulletPrefab;
     public Transform firePoint;
 
+    public Queue<Transform> targetQueue;
+    public HashSet<Transform> inQueueCheck;
 
-     private void Start () {
-        InvokeRepeating("UpdateTarget", 0f, 0.5f);
-	}
+    private float distanceToRadius;
+
+    private Transform tempTarget;
+
+    private void Awake()
+    {
+        targetQueue = new Queue<Transform>();
+        inQueueCheck = new HashSet<Transform>();
+    }
+
+    private void Start()
+    {
+        target = null;
+    }
 
     private void Update()
     {
+
+        UpdateTarget();
         if (target == null) //If no target does nothing
         {
             return;
         }
 
-        RotateTower();
+        //RotateTower();
 
         if (attackCountdown <= 0f) //checks if the attack is off cooldown 
         {
+
             Shoot();
+
             attackCountdown = 1f / attackSpeed;
         }
 
@@ -46,27 +65,39 @@ public class TowerTemplate : MonoBehaviour {
     }
 
 
-    public virtual void UpdateTarget () //Updates the target to the first target that enters the radius
+    public virtual void UpdateTarget() //Updates the target to the first target that enters the radius
     {
+        Debug.Log("In Queue " + inQueueCheck.Count);
         GameObject[] enemies = GameObject.FindGameObjectsWithTag(enemyTag);
-        float shortestDistance = Mathf.Infinity; //infinate distance to nearest enemy by default
-        GameObject nearestEnemy = null;
+
         foreach (GameObject enemy in enemies)
         {
             float distanceToEnemy = Vector3.Distance(transform.position, enemy.transform.position);
-            if (distanceToEnemy < shortestDistance)
+            if (distanceToEnemy <= radius)
             {
-                shortestDistance = distanceToEnemy;
-                nearestEnemy = enemy;
-            } 
+                Debug.Log(targetQueue.Count);
+                Enqueue(enemy.transform);
+            }
         }
 
-        if (nearestEnemy != null && shortestDistance <= radius) //if enemy leaves radius sets new enemy
+        if (target == null)
         {
-            target = nearestEnemy.transform;
-        } else
-        {
-            target = null;
+            tempTarget = targetQueue.Dequeue();
+            inQueueCheck.Remove(tempTarget);
+
+            float distanceToRadiusTemp = Vector3.Distance(transform.position, tempTarget.transform.position);
+
+            if (distanceToRadiusTemp > radius)
+            {
+                Enqueue(tempTarget);
+            }
+
+            else if (distanceToRadiusTemp <= radius)
+            {
+                target = tempTarget;
+            }
+
+
         }
     }
 
@@ -88,7 +119,8 @@ public class TowerTemplate : MonoBehaviour {
         if (bullet != null)
         {
             bullet.Seek(target); //passes the target to bullet script
-        } else if (bullet == null)
+        }
+        else if (bullet == null)
         {
             Debug.LogError("Bullet does not exist");
         }
@@ -98,6 +130,17 @@ public class TowerTemplate : MonoBehaviour {
     {
         Gizmos.color = Color.red;
         Gizmos.DrawWireSphere(transform.position, radius);
+    }
+
+    public virtual void Enqueue(Transform enemy)
+    {
+
+        {
+            if (inQueueCheck.Add(enemy))
+            {
+                targetQueue.Enqueue(enemy);
+            }
+        }
     }
 
 

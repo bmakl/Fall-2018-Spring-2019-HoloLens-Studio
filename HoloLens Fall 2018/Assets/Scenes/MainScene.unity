@@ -13681,6 +13681,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1922535250}
   - component: {fileID: 1922535249}
+  - component: {fileID: 1922535251}
   m_Layer: 0
   m_Name: GameManager
   m_TagString: Untagged
@@ -13694,7 +13695,7 @@ MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1922535248}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 4ba3dddfbdddea04b86f6b5c66f69ca0, type: 3}
   m_Name: 
@@ -13719,6 +13720,30 @@ Transform:
   m_Father: {fileID: 1020163596}
   m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1922535251
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1922535248}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bc9215b51841bbc40b6641130be6ef16, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  health: 100
+  endPoint: {fileID: 582094846}
+  waveCount: 1
+  money: 0
+  enemyPrefab:
+  - {fileID: 1762166128763998, guid: 655e786148b1d844a806abacf680e493, type: 2}
+  - {fileID: 1672700489021058, guid: b0cef836d013ce74981b51dec9845005, type: 2}
+  spawnPoint: {fileID: 97260016}
+  enemyType: 0
+  timeBetweenWaves: 5
+  timeBetweenEnemies: 0.5
+  waveSize: 10
+  enemyChange: 10
 --- !u!1001 &1923988976
 Prefab:
   m_ObjectHideFlags: 0

@@ -4,6 +4,21 @@ using UnityEngine;
 
 public class GameManager : MonoBehaviour {
 
+
+    public static GameManager instance;
+
+    private void Awake()
+    {
+        if (instance == null)
+        {
+            instance = this;
+        }
+        else if (instance != this)
+        {
+            Destroy(gameObject);
+        }
+    }
+
     [Header("Level Stats")]
     public int health = 100;
     public GameObject endPoint;  //if enemy collides with this - 1 health

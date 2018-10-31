@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class TowerTemplate : MonoBehaviour
+public class MeleeTower : MonoBehaviour
 {
 
 
@@ -50,12 +50,12 @@ public class TowerTemplate : MonoBehaviour
             return;
         }
 
-        //RotateTower();
+        RotateTower();
 
         if (attackCountdown <= 0f) //checks if the attack is off cooldown 
         {
 
-            Shoot();
+            //Shoot();
 
             attackCountdown = 1f / attackSpeed;
         }
@@ -65,7 +65,7 @@ public class TowerTemplate : MonoBehaviour
     }
 
 
-    public virtual void UpdateTarget() //Updates the target to the first target that enters the radius
+    public  void UpdateTarget() //Updates the target to the first target that enters the radius
     {
         Debug.Log("In Queue " + inQueueCheck.Count);
         GameObject[] enemies = GameObject.FindGameObjectsWithTag(enemyTag);
@@ -110,7 +110,7 @@ public class TowerTemplate : MonoBehaviour
     }
 
 
-    public virtual void RotateTower() //Rotates tower to track target
+    public  void RotateTower() //Rotates tower to track target
     {
         Vector3 direction = target.position - transform.position;
         Quaternion lookRotation = Quaternion.LookRotation(direction);
@@ -119,7 +119,7 @@ public class TowerTemplate : MonoBehaviour
     }
 
 
-    public virtual void Shoot()
+    public  void Shoot()
     {
         GameObject bulletGO = (GameObject)Instantiate(bulletPrefab, firePoint.position, firePoint.rotation); //creates the bullet and casts to Game Object
         Bullet bullet = bulletGO.GetComponent<Bullet>(); //
@@ -134,13 +134,13 @@ public class TowerTemplate : MonoBehaviour
         }
     }
 
-    public virtual void OnDrawGizmosSelected()
+    public  void OnDrawGizmosSelected()
     {
         Gizmos.color = Color.red;
         Gizmos.DrawWireSphere(transform.position, radius);
     }
 
-    public virtual void Enqueue(Transform enemy)
+    public  void Enqueue(Transform enemy)
     {
 
         {

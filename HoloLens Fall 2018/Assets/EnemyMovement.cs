@@ -28,6 +28,7 @@ public class EnemyMovement : MonoBehaviour {
         if(WavePointIndex >= Waypoints.points.Length -1)
         {
             Destroy(gameObject);
+            GameManager.instance.health--;
             return;
         }
         WavePointIndex++;

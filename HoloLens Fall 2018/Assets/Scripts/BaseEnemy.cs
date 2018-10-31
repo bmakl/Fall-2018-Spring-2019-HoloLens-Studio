@@ -3,6 +3,8 @@
 public class BaseEnemy : MonoBehaviour
 {
 
+    [Header("Enemy Stats")]
+    public int damageToPlayer = 1;
     public float speed = 10f;
 
     private Transform target;
@@ -29,7 +31,7 @@ public class BaseEnemy : MonoBehaviour
         if (WavePointIndex >= Waypoints.points.Length - 1)
         {
             Destroy(gameObject);
-            GameManager.instance.health--;
+            GameManager.instance.health -= damageToPlayer;
             return;
         }
         WavePointIndex++;

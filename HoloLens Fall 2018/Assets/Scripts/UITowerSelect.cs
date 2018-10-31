@@ -19,7 +19,7 @@ public class UITowerSelect : MonoBehaviour, IInputHandler, IInputClickHandler
         foreach (GameObject node in nodes)
         {
             Debug.Log("node lol");
-            node.GetComponent<TowerSpawn>().towerPrefab = tower;
+            node.GetComponent<TowerSpawn>().turretToBuild = tower;
         }
     }
 

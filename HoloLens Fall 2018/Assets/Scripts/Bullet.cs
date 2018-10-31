@@ -4,10 +4,15 @@ using UnityEngine;
 
 public class Bullet : MonoBehaviour {
 
-    private Transform target;
+    [Header("Prefab Names")]
+    public string[] enemies;
 
+    [Header("Money Gain Values")]
+    public int pumpkinKill = 1;
+
+    [Header("Bullet Stats")]
     public float bulletSpeed;
-
+    private Transform target;
 
     public void Seek(Transform _target)//Grabs target from TowerTemplate
 
@@ -44,6 +49,11 @@ public class Bullet : MonoBehaviour {
     {
         Destroy(this.gameObject);
         Destroy(target.gameObject);
+        if (target.gameObject.name == enemies[0])
+        {
+            GameManager.instance.money += pumpkinKill;
+        }
+
     }
 
 }

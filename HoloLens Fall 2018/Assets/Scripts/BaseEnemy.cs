@@ -6,6 +6,7 @@ public class BaseEnemy : MonoBehaviour
     [Header("Enemy Stats")]
     public int damageToPlayer = 1;
     public float speed = 10f;
+    public float health = 2f;
 
     private Transform target;
     private int WavePointIndex = 0;

@@ -1,18 +1,30 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using HoloToolkit.Unity.InputModule;
 
-public class TowerTemplate : MonoBehaviour
+public class TowerTemplate : MonoBehaviour, IInputClickHandler
 {
 
 
-    [Header("Turret Stats")]
+    [Header("Turret Base Stats")]
     public float radius = 5f;
     public float attackSpeed = 1f;
+    [HideInInspector]
     public float attackCountdown = 0f;
     public float attackDamage = 1f;
     public float health = 1f;
     public float turnSpeed = 12;
+
+    [Header("Turret Upgrade 1 Stats")]
+    public float upgrade1Damage;
+    public float upgrade1AttackSpeed;
+    public float upgrade1Range;
+
+    [Header("Turret Upgrade 2 Stats")]
+    public float upgrade2Damage;
+    public float upgrade2AttackSpeed;
+    public float upgrade2Range;
 
 
     [Header("Setup Stuff")]
@@ -29,6 +41,9 @@ public class TowerTemplate : MonoBehaviour
     private float distanceToRadius;
 
     private Transform tempTarget;
+    private Transform currentTarget;
+
+    public float clicks = 0;
 
     private void Awake()
     {
@@ -39,6 +54,7 @@ public class TowerTemplate : MonoBehaviour
     private void Start()
     {
         target = null;
+        clicks = 0;
     }
 
     private void Update()
@@ -62,6 +78,8 @@ public class TowerTemplate : MonoBehaviour
 
         attackCountdown -= Time.deltaTime;
 
+
+
     }
 
 
@@ -80,33 +98,41 @@ public class TowerTemplate : MonoBehaviour
             }
         }
 
-        if (target == null)
+        if (targetQueue.Count > 0)
         {
-            if (targetQueue.Count > 0)
+            if (target == null)
             {
                 tempTarget = targetQueue.Dequeue();
                 inQueueCheck.Remove(tempTarget);
-                if (tempTarget == null)
-                {
-                    return;
-                }
-
-                float distanceToRadiusTemp = Vector3.Distance(transform.position, tempTarget.transform.position);
-
-                if (distanceToRadiusTemp > radius)
-                {
-                    Enqueue(tempTarget);
-                }
-
-
-                else if (distanceToRadiusTemp <= radius)
-                {
-                    target = tempTarget;
-                }
             }
 
+            if (tempTarget == null)
+            {
+                return;
+            }
 
+            float distanceToRadiusTemp = Vector3.Distance(transform.position, tempTarget.transform.position);
+
+            if (distanceToRadiusTemp > radius)
+            {
+                //Enqueue(tempTarget);
+                target = null;
+                tempTarget = null;
+                Enqueue(tempTarget);
+            }
+
+            else if (distanceToRadiusTemp <= radius)
+            {
+                target = tempTarget;
+            }
+
+            
         }
+
+        
+
+        
+        
     }
 
 
@@ -126,7 +152,7 @@ public class TowerTemplate : MonoBehaviour
 
         if (bullet != null)
         {
-            bullet.Seek(target); //passes the target to bullet script
+            bullet.Seek(target, attackDamage); //passes the target to bullet script
         }
         else if (bullet == null)
         {
@@ -151,7 +177,36 @@ public class TowerTemplate : MonoBehaviour
         }
     }
 
+    public void OnInputClicked(InputClickedEventData eventData)
+    {
+        if (clicks == 0)
+        {
+            Upgrade1();
+            clicks++;
+        }
+
+        else if (clicks == 1)
+        {
+            Upgrade2();
+            clicks++;
+        }
+    }
+
+    private void Upgrade1()
+    {
+        attackDamage = upgrade1Damage;
+        radius = upgrade1Range;
+        attackSpeed = upgrade1AttackSpeed;
+        
+    }
 
 
+    private void Upgrade2()
+    {
+        attackDamage = upgrade2Damage;
+        radius = upgrade2Range;
+        attackSpeed = upgrade2AttackSpeed;
+
+    }
 }
 

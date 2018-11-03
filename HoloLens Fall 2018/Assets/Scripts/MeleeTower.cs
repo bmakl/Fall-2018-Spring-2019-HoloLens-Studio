@@ -126,7 +126,7 @@ public class MeleeTower : MonoBehaviour
 
         if (bullet != null)
         {
-            bullet.Seek(target); //passes the target to bullet script
+            bullet.Seek(target, attackDamage); //passes the target to bullet script
         }
         else if (bullet == null)
         {

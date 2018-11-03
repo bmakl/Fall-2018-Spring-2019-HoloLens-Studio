@@ -110,5 +110,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   enemies:
   - Pumpkin(Clone)
-  pumpkinKill: 1
+  - EnemyFast(Clone)
+  pumpkinKill: 10
   bulletSpeed: 25

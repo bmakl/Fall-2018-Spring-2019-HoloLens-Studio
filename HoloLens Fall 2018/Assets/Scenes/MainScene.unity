@@ -13743,7 +13743,8 @@ MonoBehaviour:
   timeBetweenWaves: 5
   timeBetweenEnemies: 0.5
   waveSize: 10
-  enemyChange: 10
+  Wave: 1
+  enemyChange: 3
 --- !u!1001 &1923988976
 Prefab:
   m_ObjectHideFlags: 0

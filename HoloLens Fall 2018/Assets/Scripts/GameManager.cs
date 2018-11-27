@@ -38,6 +38,8 @@ public class GameManager : MonoBehaviour {
     public float timeBetweenEnemies = 0.5f;
     public int waveSize = 10;
 
+    public int Wave = 1; // what wave we are on for math
+
     private int waveIndex = 0;
     private int enemyCount = 0; // how many enemies have spawned in the wave
     public int enemyChange = 1; // change to the type of enemy at this number of enemies spawned
@@ -46,10 +48,14 @@ public class GameManager : MonoBehaviour {
     void Update()
     {
         Spawner(); // so it spawns without the start button
-        if(enemyCount>= enemyChange)    // changes the enemy type 
+        EnemyType();
+
+        if(enemyCount>= 10)
         {
-            enemyType = enemyDif;   // logic needs to eb changed later after design
+            enemyCount = 0;
         }
+
+
     }
     IEnumerator SpawnWave()
     {
@@ -79,6 +85,30 @@ public class GameManager : MonoBehaviour {
 
         Instantiate(enemyPrefab[enemyIndex], spawnPoint.position, spawnPoint.rotation);
         //Instantiate(enemyFastPrefab, spawnPoint.position, spawnPoint.rotation);
+
+    }
+
+    void EnemyType()
+    {
+        
+        int TypeEnemy = enemyCount;
+
+        switch (TypeEnemy)
+        {
+            case 3:
+                enemyType = 1;
+                break;
+            case 6:
+                enemyType = 1;
+                break;
+            case 9:
+                enemyType = 1;
+                break;
+
+            default:
+                enemyType = 0;
+                break;
+        }
 
     }
 }

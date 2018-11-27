@@ -34,4 +34,12 @@ public class EnemyMovement : MonoBehaviour {
         target = Waypoints.points[WavePointIndex];
     }
 
+    private void OnTriggerEnter(Collider other)
+    {
+        if(other.gameObject.tag == "Base")
+        {
+            Destroy(this);
+        }
+    }
+
 }

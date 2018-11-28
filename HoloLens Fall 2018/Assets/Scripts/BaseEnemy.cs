@@ -40,4 +40,20 @@ public class BaseEnemy : MonoBehaviour
     }
 
 
+    public void HitDetect(Bullet bullet)
+    {
+        bullet.baseEnemy = this;
+        
+        if (health > 0)
+        {
+            health -= bullet.bulletDamage;
+        }
+        else if (health <= 0)
+        {
+            Destroy(this.gameObject);
+        }
+
+    }
+
+
 }

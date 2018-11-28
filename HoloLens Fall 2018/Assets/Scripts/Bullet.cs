@@ -4,8 +4,7 @@ using UnityEngine;
 
 public class Bullet : MonoBehaviour {
 
-    [Header("Prefab Names")]
-    public string[] enemies;
+ 
 
     [Header("Money Gain Values")]
     public int pumpkinKill = 1;
@@ -13,19 +12,17 @@ public class Bullet : MonoBehaviour {
     [Header("Bullet Stats")]
     public float bulletSpeed;
     private Transform target;
-    private float bulletDamage;
+    public float bulletDamage;
 
-    private BaseEnemy baseEnemy;
+    public BaseEnemy baseEnemy;
 
     public void Seek(Transform _target, float damage)//Grabs target from TowerTemplate
 
     {
         target = _target;
         bulletDamage = damage;
-        if (target.name == enemies[0])
-        {
+      
             baseEnemy = target.GetComponent<BaseEnemy>();
-        }
     }
 
 
@@ -45,7 +42,8 @@ public class Bullet : MonoBehaviour {
 
         if (dir.magnitude <= distanceThisFrame) //Hit detection
         {
-            HitTarget();
+            baseEnemy.HitDetect(this);
+            Destroy(this.gameObject);
             return;
         }
 
@@ -53,32 +51,6 @@ public class Bullet : MonoBehaviour {
 
 	}
 
-    void HitTarget()
-    {
-
-        Destroy(this.gameObject);
-        
-        if (target.gameObject.name == enemies[0])
-        {
-            if (baseEnemy.health > 0)
-            {
-                baseEnemy.health -= bulletDamage;
-            }
-             if (baseEnemy.health <= 0)
-            {
-                Destroy(target.gameObject);
-                GameManager.instance.money += pumpkinKill;
-            }
-            
-        }
-
-
-        if (target.name == enemies[1])
-        {
-            Destroy(target.gameObject);
-        }
-
-
-    }
+ 
 
 }

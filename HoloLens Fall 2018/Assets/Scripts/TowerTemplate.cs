@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using HoloToolkit.Unity.InputModule;
 
-public class TowerTemplate : MonoBehaviour, IInputClickHandler
+public class TowerTemplate : MonoBehaviour,IFocusable, IInputClickHandler
 {
 
 
@@ -25,6 +25,13 @@ public class TowerTemplate : MonoBehaviour, IInputClickHandler
     public float upgrade2Damage;
     public float upgrade2AttackSpeed;
     public float upgrade2Range;
+
+    [Header("Draw Radius Stats")]
+    [Range(3, 256)]
+    public int numSegments = 128;
+
+    private LineRenderer line;
+
 
 
     [Header("Setup Stuff")]
@@ -55,11 +62,12 @@ public class TowerTemplate : MonoBehaviour, IInputClickHandler
     {
         target = null;
         clicks = 0;
+        line = GetComponent<LineRenderer>();
     }
 
     private void Update()
     {
-
+        //DrawRadius();
         UpdateTarget();
         if (target == null) //If no target does nothing
         {
@@ -160,11 +168,12 @@ public class TowerTemplate : MonoBehaviour, IInputClickHandler
         }
     }
 
-    public virtual void OnDrawGizmosSelected()
+   public virtual void OnDrawGizmosSelected()
     {
         Gizmos.color = Color.red;
         Gizmos.DrawWireSphere(transform.position, radius);
     }
+    
 
     public virtual void Enqueue(Transform enemy)
     {
@@ -194,10 +203,12 @@ public class TowerTemplate : MonoBehaviour, IInputClickHandler
 
     private void Upgrade1()
     {
+
         attackDamage = upgrade1Damage;
         radius = upgrade1Range;
         attackSpeed = upgrade1AttackSpeed;
-        
+        DrawRadius();
+
     }
 
 
@@ -206,7 +217,45 @@ public class TowerTemplate : MonoBehaviour, IInputClickHandler
         attackDamage = upgrade2Damage;
         radius = upgrade2Range;
         attackSpeed = upgrade2AttackSpeed;
+        DrawRadius();
 
+    }
+
+    private void DrawRadius()
+    {
+        
+        line.enabled = true;
+        Color c1 = Color.red;
+        line.material = new Material(Shader.Find("Particles/Additive"));
+        line.startColor = c1;
+        line.endColor = c1;
+        line.startWidth = 0.1f;
+        line.endWidth = 0.1f;
+        line.positionCount = numSegments + 1;
+        line.useWorldSpace = false;
+
+        float deltaTheta = (float)(2.0 * Mathf.PI) / numSegments;
+        float theta = 0f;
+
+        for (int i = 0; i < numSegments + 1; i++)
+        {
+            float x = radius * Mathf.Cos(theta);
+            float z = radius * Mathf.Sin(theta);
+
+            line.SetPosition(i, new Vector3(x, 0, z));
+            theta += deltaTheta;
+        }
+
+    }
+
+    public void OnFocusEnter()
+    {
+        DrawRadius();
+    }
+
+    public void OnFocusExit()
+    {
+        line.enabled = false;
     }
 }
 

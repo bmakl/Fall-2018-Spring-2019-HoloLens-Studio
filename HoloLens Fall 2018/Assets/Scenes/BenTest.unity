@@ -1454,6 +1454,11 @@ Prefab:
       propertyPath: m_RootOrder
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 120090612584216662, guid: a49e82f70a18d57458b2ca51c7310a49,
+        type: 2}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: a49e82f70a18d57458b2ca51c7310a49, type: 2}
   m_IsPrefabAsset: 0
@@ -3127,6 +3132,7 @@ Prefab:
       objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: 114834580521697450, guid: 67881d03f5823a54b945aacf184b7c22, type: 2}
+    - {fileID: 114382906483434848, guid: 67881d03f5823a54b945aacf184b7c22, type: 2}
   m_SourcePrefab: {fileID: 100100000, guid: 67881d03f5823a54b945aacf184b7c22, type: 2}
   m_IsPrefabAsset: 0
 --- !u!1001 &415560793
@@ -5393,6 +5399,7 @@ Prefab:
       objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: 114904923878959196, guid: bad92d525292c3f43b13f05d74563a3d, type: 2}
+    - {fileID: 114412704693039902, guid: bad92d525292c3f43b13f05d74563a3d, type: 2}
   m_SourcePrefab: {fileID: 100100000, guid: bad92d525292c3f43b13f05d74563a3d, type: 2}
   m_IsPrefabAsset: 0
 --- !u!1 &755893874
@@ -7434,6 +7441,7 @@ Prefab:
       objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: 114236664803239938, guid: 46ab9dd1dcd71424d94c291930b6620c, type: 2}
+    - {fileID: 114223265851529304, guid: 46ab9dd1dcd71424d94c291930b6620c, type: 2}
   m_SourcePrefab: {fileID: 100100000, guid: 46ab9dd1dcd71424d94c291930b6620c, type: 2}
   m_IsPrefabAsset: 0
 --- !u!1001 &975569924
@@ -10060,6 +10068,57 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 4191761127061426, guid: 7addc084409404c4b81991976e983cdb,
     type: 2}
   m_PrefabInternal: {fileID: 1310231443}
+--- !u!1001 &1314310984
+Prefab:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 4449001941523260, guid: a49e82f70a18d57458b2ca51c7310a49, type: 2}
+      propertyPath: m_LocalPosition.x
+      value: 7.53
+      objectReference: {fileID: 0}
+    - target: {fileID: 4449001941523260, guid: a49e82f70a18d57458b2ca51c7310a49, type: 2}
+      propertyPath: m_LocalPosition.y
+      value: 0.125
+      objectReference: {fileID: 0}
+    - target: {fileID: 4449001941523260, guid: a49e82f70a18d57458b2ca51c7310a49, type: 2}
+      propertyPath: m_LocalPosition.z
+      value: 9.95
+      objectReference: {fileID: 0}
+    - target: {fileID: 4449001941523260, guid: a49e82f70a18d57458b2ca51c7310a49, type: 2}
+      propertyPath: m_LocalRotation.x
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4449001941523260, guid: a49e82f70a18d57458b2ca51c7310a49, type: 2}
+      propertyPath: m_LocalRotation.y
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4449001941523260, guid: a49e82f70a18d57458b2ca51c7310a49, type: 2}
+      propertyPath: m_LocalRotation.z
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4449001941523260, guid: a49e82f70a18d57458b2ca51c7310a49, type: 2}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4449001941523260, guid: a49e82f70a18d57458b2ca51c7310a49, type: 2}
+      propertyPath: m_RootOrder
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 120090612584216662, guid: a49e82f70a18d57458b2ca51c7310a49,
+        type: 2}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1404513353950832, guid: a49e82f70a18d57458b2ca51c7310a49, type: 2}
+      propertyPath: m_Name
+      value: BaseTower (1)
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: a49e82f70a18d57458b2ca51c7310a49, type: 2}
+  m_IsPrefabAsset: 0
 --- !u!1001 &1346006739
 Prefab:
   m_ObjectHideFlags: 0
@@ -14270,6 +14329,7 @@ MonoBehaviour:
   timeBetweenWaves: 5
   timeBetweenEnemies: 0.5
   waveSize: 10
+  Wave: 1
   enemyChange: 10
 --- !u!1001 &1923988976
 Prefab:

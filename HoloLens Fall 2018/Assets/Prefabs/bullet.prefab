@@ -37,8 +37,8 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1672821609888124}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 1.5927073, y: 0.1328125, z: 1.1973977}
-  m_LocalScale: {x: 0.0902525, y: 0.0902525, z: 0.0902525}
+  m_LocalPosition: {x: 0, y: 0, z: 0.953}
+  m_LocalScale: {x: 0.268116, y: 0.268116, z: 0.268116}
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
@@ -108,7 +108,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8a7784ff93f71b04182660e3ed9d8f33, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  enemies:
+  - Pumpkin(Clone)
+  - EnemyFast(Clone)
   pumpkinKill: 10
-  bulletSpeed: 5
-  bulletDamage: 0
-  baseEnemy: {fileID: 0}
+  bulletSpeed: 25

@@ -30,7 +30,7 @@ public class Bullet : MonoBehaviour {
     void Update() {
 
 
-        if (target == null || this == null)//Checks if there is a target, if not destorys bullet
+        if (target == null)//Checks if there is a target, if not destorys bullet
         {
             Destroy(gameObject);
             return;

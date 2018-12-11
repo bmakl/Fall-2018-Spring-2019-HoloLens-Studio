@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+
 public class Bullet : MonoBehaviour {
 
  
@@ -42,9 +43,14 @@ public class Bullet : MonoBehaviour {
 
         if (dir.magnitude <= distanceThisFrame) //Hit detection
         {
-            baseEnemy.HitDetect(this);
-            Destroy(this.gameObject);
-            return;
+
+            if (this != null)
+            {
+                baseEnemy.HitDetect(this);
+                Destroy(this.gameObject);
+                return;
+            }
+
         }
 
         transform.Translate(dir.normalized * distanceThisFrame, Space.World); //Moves Bullet

@@ -54,15 +54,15 @@ public class TowerTemplate : MonoBehaviour,IFocusable, IInputClickHandler
 
     private void Awake()
     {
-        targetQueue = new Queue<Transform>();
-        inQueueCheck = new HashSet<Transform>();
+        targetQueue = new Queue<Transform>();//Creates queue that holds list of enemies as they enter the radius
+        inQueueCheck = new HashSet<Transform>();//Creates a list that checks if object is alreayd in the queue
     }
 
     private void Start()
     {
         target = null;
         clicks = 0;
-        line = GetComponent<LineRenderer>();
+        line = GetComponent<LineRenderer>();//Shows radius of tower
     }
 
     private void Update()
@@ -98,32 +98,31 @@ public class TowerTemplate : MonoBehaviour,IFocusable, IInputClickHandler
 
         foreach (GameObject enemy in enemies)
         {
-            float distanceToEnemy = Vector3.Distance(transform.position, enemy.transform.position);
-            if (distanceToEnemy <= radius)
+            float distanceToEnemy = Vector3.Distance(transform.position, enemy.transform.position);//gets distance between tower and enemy
+            if (distanceToEnemy <= radius) //if enemy distance is less than radius size adds to queue
             {
                 Debug.Log(targetQueue.Count);
-                Enqueue(enemy.transform);
+                Enqueue(enemy.transform); //Calls Enqueue function and passes enemy transform into it
             }
         }
 
         if (targetQueue.Count > 0)
         {
-            if (target == null)
+            if (target == null)//if no target set first enemy in queue as target
             {
                 tempTarget = targetQueue.Dequeue();
                 inQueueCheck.Remove(tempTarget);
             }
 
-            if (tempTarget == null)
+            if (tempTarget == null) //if there was no enemy in the queue return
             {
                 return;
             }
 
-            float distanceToRadiusTemp = Vector3.Distance(transform.position, tempTarget.transform.position);
+            float distanceToRadiusTemp = Vector3.Distance(transform.position, tempTarget.transform.position);//gets current distance of enemy
 
-            if (distanceToRadiusTemp > radius)
+            if (distanceToRadiusTemp > radius) //if the enemy right now is outside the radius it will reset all the values 
             {
-                //Enqueue(tempTarget);
                 target = null;
                 tempTarget = null;
                 Enqueue(tempTarget);
@@ -133,8 +132,6 @@ public class TowerTemplate : MonoBehaviour,IFocusable, IInputClickHandler
             {
                 target = tempTarget;
             }
-
-            
         }
 
         
@@ -143,20 +140,21 @@ public class TowerTemplate : MonoBehaviour,IFocusable, IInputClickHandler
         
     }
 
-
+    //The rotate was removed and isn't used
+    /*
     public virtual void RotateTower() //Rotates tower to track target
     {
         Vector3 direction = target.position - transform.position;
         Quaternion lookRotation = Quaternion.LookRotation(direction);
         Vector3 rotation = Quaternion.Lerp(rotatingPart.rotation, lookRotation, Time.deltaTime * turnSpeed).eulerAngles;
         rotatingPart.rotation = Quaternion.Euler(0f, rotation.y, 0f);
-    }
+    }*/
 
 
     public virtual void Shoot()
     {
         GameObject bulletGO = (GameObject)Instantiate(bulletPrefab, firePoint.position, firePoint.rotation); //creates the bullet and casts to Game Object
-        Bullet bullet = bulletGO.GetComponent<Bullet>(); //
+        Bullet bullet = bulletGO.GetComponent<Bullet>(); 
 
         if (bullet != null)
         {
@@ -200,7 +198,7 @@ public class TowerTemplate : MonoBehaviour,IFocusable, IInputClickHandler
             clicks++;
         }
     }
-
+    //Upgrade 1
     private void Upgrade1()
     {
 
@@ -211,7 +209,7 @@ public class TowerTemplate : MonoBehaviour,IFocusable, IInputClickHandler
 
     }
 
-
+    //Upgrade 2
     private void Upgrade2()
     {
         attackDamage = upgrade2Damage;
@@ -221,6 +219,7 @@ public class TowerTemplate : MonoBehaviour,IFocusable, IInputClickHandler
 
     }
 
+    //Everything under here is for showing the radius of tower
     private void DrawRadius()
     {
         
